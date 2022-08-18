@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  if(user)
+    p Hello, #{user.username}
+  else 
+    p
+      a(href='/auth/google') Google Log in
+  if(user)
+    div 
+      a(href='/logout') Logout
+    div
+      a(href='/diary/entry/create') Create Entry
+
+  else 
+    div
+      a(href='/signup') Sign up
+    div
+      a(href='/login') Log in 
+    div 
+      a(href='/auth/google') Google Log in
+  
