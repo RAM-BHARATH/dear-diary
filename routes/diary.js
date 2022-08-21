@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const entry_controller = require('../controllers/entry_controller');
+const category_controller = require('../controllers/category_controller')
 
 const passport = require('passport');
 
@@ -30,20 +31,20 @@ router.get('/entry/:id', isLoggedIn.isLoggedIn, entry_controller.view_entry);
 router.get('/entry', isLoggedIn.isLoggedIn, entry_controller.entry_list);
 
 //// CATEGORY ROUTES ////
-// router.get('/category/create', category_controller.category_create_get);
+router.get('/category/create', isLoggedIn.isLoggedIn, category_controller.category_create_get);
 
-// router.post('/category/create', category_controller.category_create_post);
+router.post('/category/create', isLoggedIn.isLoggedIn, category_controller.category_create_post);
 
-// router.get('/category/:id/delete', category_controller.category_delete_get);
+// router.get('/category/:id/delete', isLoggedIn.isLoggedIn, category_controller.category_delete_get);
 
-// router.post('/category/:id/delete', category_controller.category_delete_post);
+// router.post('/category/:id/delete', isLoggedIn.isLoggedIn, category_controller.category_delete_post);
 
-// router.get('/category/:id/update', category_controller.category_update_get);
+router.get('/category/:id/update', isLoggedIn.isLoggedIn, category_controller.category_update_get);
 
-// router.post('/category/:id/update', category_controller.category_update_post);
+router.post('/category/:id/update', isLoggedIn.isLoggedIn, category_controller.category_update_post);
 
-// router.get('/category/:id', category_controller.category_detail);
+router.get('/category/:id', isLoggedIn.isLoggedIn, category_controller.category_detail);
 
-// router.get('/category', category_controller.category_list);
+router.get('/category', isLoggedIn.isLoggedIn, category_controller.category_list);
 
 module.exports = router;

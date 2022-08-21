@@ -11,6 +11,7 @@ var EntrySchema = new Schema({
     last_updated_time: {type: Date},
     category: [{ type: Schema.Types.ObjectId, ref: 'Category'}],
     year: Number,
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
 });
 
 EntrySchema
@@ -19,4 +20,4 @@ EntrySchema
     return '/diary/entry/'+this._id;
 })
 
-moduule.exports = mongoose.model('Entry', EntrySchema);
+module.exports = mongoose.model('Entry', EntrySchema);

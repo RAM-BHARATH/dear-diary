@@ -13,6 +13,10 @@ block content
       a(href='/logout') Logout
     div
       a(href='/diary/entry/create') Create Entry
+    div 
+      a(href="/diary/category/create") Create Category
+    div 
+      a(href="/diary/category") All Categories
 
   else 
     div
@@ -21,4 +25,15 @@ block content
       a(href='/login') Log in 
     div 
       a(href='/auth/google') Google Log in
+
+  div 
+    ul 
+      if(entries)
+        for entry in entries 
+          li 
+            span
+              a(href=entry.url) #{entry.entry_title ? entry.entry_title : entry.entry_date_time.toLocaleString('en-IN', {timeZone: 'UTC'}) }
+              span   | 
+              a(href=entry.url+'/update') Update
+
   

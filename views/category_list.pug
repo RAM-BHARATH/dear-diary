@@ -1,0 +1,14 @@
+extends layout 
+
+block content 
+
+    if(categories)
+        ul 
+            for category in categories
+                li 
+                    span 
+                        a(href=category.url) #{category.name}
+                    span  |  
+                    span
+                        a(href=category.url+'/update') Update 
+                 

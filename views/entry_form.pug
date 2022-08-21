@@ -1,0 +1,21 @@
+extends layout 
+
+block content 
+
+    form(action="", method="post") 
+        div 
+            label(for="name") Name
+            input(type="text", name="name", id="name", value=(entry ? entry.entry_title : ''))
+        div 
+            label(for="desc") Description
+            textarea(name="desc", id="desc", cols="30", rows="10") #{entry ? entry.entry_text : ''}
+        div 
+            label Categories:
+            span
+                for category in categories
+                    span(style='display: inline; padding-right:10px;')
+                        input.checkbox-input(type='checkbox', name='category', id=category._id, value=category._id, checked=category.checked )
+                        label(for=category._id) #{category.name}
+        //- input(type="hidden", name="entry_date_time" value=(entry ? entry.entry_date_time))
+        div
+            input(type="submit", value="Submit")

@@ -1,0 +1,11 @@
+extends layout 
+
+block content 
+
+    if(category)
+        div 
+            h1= category.name 
+        div 
+            p= category.description
+        div 
+            a(href=category.url+'/update') Update
