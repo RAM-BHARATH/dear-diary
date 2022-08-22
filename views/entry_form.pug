@@ -12,10 +12,18 @@ block content
         div 
             label Categories:
             span
-                for category in categories
-                    span(style='display: inline; padding-right:10px;')
-                        input.checkbox-input(type='checkbox', name='category', id=category._id, value=category._id, checked=category.checked )
-                        label(for=category._id) #{category.name}
+                if(categories)
+                    for category in categories
+                        span(style='display: inline; padding-right:10px;')
+                            input.checkbox-input(type='checkbox', name='category', id=category._id, value=category._id, checked=category.checked )
+                            label(for=category._id) #{category.name}
         //- input(type="hidden", name="entry_date_time" value=(entry ? entry.entry_date_time))
         div
             input(type="submit", value="Submit")
+        if(errors)
+            ul
+                for error_value, error_key in errors
+                    li #{error_key}
+                    for error_value_val, error_value_key in error_value
+                        li #{error_value_key}, #{error_value_val}
+                    

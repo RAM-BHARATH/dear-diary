@@ -1,0 +1,11 @@
+extends layout 
+
+block content 
+
+    if(category)
+        p= category.name 
+        p= category.description
+    
+        form(action="", method="post") 
+            input(type="hidden", name='category_id', required='true', value=category._id)
+            input(type="submit", value="Delete")

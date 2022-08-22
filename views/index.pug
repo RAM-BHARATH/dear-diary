@@ -33,7 +33,10 @@ block content
           li 
             span
               a(href=entry.url) #{entry.entry_title ? entry.entry_title : entry.entry_date_time.toLocaleString('en-IN', {timeZone: 'UTC'}) }
-              span   | 
-              a(href=entry.url+'/update') Update
+              span &nbsp;|&nbsp;
+              a(href=entry.url+'/update') Update 
+              span &nbsp;|&nbsp;
+              a(href=entry.url+'/delete') Delete
+
 
   

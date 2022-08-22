@@ -44,7 +44,7 @@ exports.entry_create_post = [
         const errors = validationResult(req);
 
         if(!errors.isEmpty()){
-            res.render('entry_form', { user: req.user, errors: errors.array(), entry: req.body() })
+            res.render('entry_form', { user: req.user, errors: errors.array(), entry: req.body })
             return;
         }else{
             let time_now = new Date();
@@ -66,11 +66,20 @@ exports.entry_create_post = [
 ]
 
 exports.entry_delete_get = function(req, res, next){
-    res.json({msg: 'To be implemented'})
+    Entry
+    .findOne({ userId: req.user._id, _id: req.params.id })
+    .populate('category')
+    .exec(function(err, entry){
+        if(err) { return next(err) }
+        res.render('delete_entry', { title: 'Delete Entry', entry: entry});
+    })
 }
 
 exports.entry_delete_post = function(req, res, next){
-    res.json({msg: 'To be implemented'})
+    Entry.findOneAndRemove({ _id:req.body.entry_id, userId: req.user._id}, function(err){
+        if(err){ return next(err) }
+        res.redirect('/diary')
+    })
 }
 
 exports.entry_update_get = function(req, res, next){

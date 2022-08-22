@@ -1,0 +1,11 @@
+extends layout 
+
+block content 
+
+    h1= title 
+    p= entry.entry_title
+    p= entry.entry_text 
+
+    form(action="", method="post") 
+        input(type="hidden", name='entry_id', required='true', value=entry._id)
+        input(type="submit", value="Delete")

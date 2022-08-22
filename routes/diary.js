@@ -35,9 +35,9 @@ router.get('/category/create', isLoggedIn.isLoggedIn, category_controller.catego
 
 router.post('/category/create', isLoggedIn.isLoggedIn, category_controller.category_create_post);
 
-// router.get('/category/:id/delete', isLoggedIn.isLoggedIn, category_controller.category_delete_get);
+router.get('/category/:id/delete', isLoggedIn.isLoggedIn, category_controller.category_delete_get);
 
-// router.post('/category/:id/delete', isLoggedIn.isLoggedIn, category_controller.category_delete_post);
+router.post('/category/:id/delete', isLoggedIn.isLoggedIn, category_controller.category_delete_post);
 
 router.get('/category/:id/update', isLoggedIn.isLoggedIn, category_controller.category_update_get);
 

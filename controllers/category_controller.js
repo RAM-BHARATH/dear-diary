@@ -86,6 +86,24 @@ exports.category_update_post = [
     }
 ]   
 
+exports.category_delete_get = function(req, res, next){
+    Category
+    .findOne({ userId: req.user._id, _id: req.params.id })
+    .exec(function(err, category){
+        if(err){ return next(err) }
+        if(category){
+            res.render('delete_category', { title: 'Delete Category', category: category })
+        }
+    })
+}
+
+exports.category_delete_post = function(req, res, next){
+    Category.findOneAndRemove({ _id:req.body.category_id, userId: req.user._id}, function(err){
+        if(err){ return next(err) }
+        res.redirect('/diary')
+    })
+}
+
 exports.category_list = function(req, res, next){
     Category.find({ userId: req.user._id })
     .exec(function(err, categories){
