@@ -1,6 +1,10 @@
 const Category = require('../models/category');
 
 const { body, validationResult } = require('express-validator');
+// const category = require('../models/category');
+const Entry = require('../models/entry')
+
+const async = require('async')
 
 exports.category_detail = function(req, res, next){
     Category.findOne({_id: req.params.id, userId: req.user._id}).exec(
@@ -98,10 +102,29 @@ exports.category_delete_get = function(req, res, next){
 }
 
 exports.category_delete_post = function(req, res, next){
-    Category.findOneAndRemove({ _id:req.body.category_id, userId: req.user._id}, function(err){
+    async.parallel({
+        category(callback){
+            Category
+            .findOneAndRemove({ _id:req.body.category_id, userId: req.user._id})  
+            .exec(callback)
+        },
+        entries(callback){
+            Entry.updateMany(
+                { userId: req.user._id, category: req.params.id },
+                { '$pull': { "category": req.params.id } },
+                { 'multi': true }
+            ).exec(callback)
+        }
+    }, function(err, results){
         if(err){ return next(err) }
-        res.redirect('/diary')
+        if(!results.category || results.category.length==0){
+            let err = new Error('Category not found')
+            err.status = 404;
+            return next(err)
+        }
+        res.redirect('/diary');
     })
+    
 }
 
 exports.category_list = function(req, res, next){

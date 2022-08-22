@@ -14,17 +14,17 @@ CategorySchema
     return '/diary/category/'+this._id;
 })
 
-CategorySchema.pre('update', function(next){
-    // Category.update(
-    //     {},
-    //     { "$pull": { "category": this._id } }
-    // )
-    Entry.updateMany(
-        { },
-        {'$pull': { "category": this._id }},
-        { "multi": true },
-        next()
-    )
-})
+// CategorySchema.pre('update', function(next){
+//     // Category.update(
+//     //     {},
+//     //     { "$pull": { "category": this._id } }
+//     // )
+//     Entry.updateMany(
+//         { },
+//         {'$pull': { "category": this._id }},
+//         { "multi": true },
+//         next()
+//     )
+// })
 
 module.exports = mongoose.model('Category', CategorySchema);
