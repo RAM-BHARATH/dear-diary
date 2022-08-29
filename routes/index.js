@@ -49,4 +49,8 @@ router.get('/', function(req, res, next) {
   res.redirect('/diary');
 });
 
+router.get('/glogin', (req, res)=>{
+  res.render('glogin')
+})
+
 module.exports = router;

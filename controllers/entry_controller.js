@@ -7,9 +7,23 @@ const async = require('async')
 
 exports.index = function(req, res){
     if(req.user){
-        Entry.find({ userId: req.user._id }).exec(function(err, entries){
+        async.parallel({
+            entries(callback){
+                Entry
+                .find({ userId: req.user._id })
+                .limit(3)
+                .sort({entry_date_time:-1})
+                .exec(callback)
+            },
+            categories(callback){
+                Category
+                .find({ userId: req.user._id })
+                .limit(5)
+                .exec(callback)
+            }
+        }, function (err, results){
             if(err) return next(err);
-            res.render('index', { title: 'Dear Diary', user: req.user, entries: entries })
+            res.render('index', { title: 'Dear Diary', user: req.user, entries: results.entries, categories: results.categories  })
         })
     }else{
         res.render('index', { title: 'Dear Diary', user: req.user }) 
@@ -183,15 +197,17 @@ exports.view_entry = function(req, res, next){
 
 exports.entry_list = function(req, res, next){
     Entry
-    .findOne({ _id:req.params.id, userId: req.user._id })
+    .find({ userId: req.user._id })
     .populate('category')
-    .exec(function(err, entry){
+    .sort({ entry_date_time: -1 })
+    .exec(function(err, entries){
         if(err) return next(err)
-        if(!entry){
-            let err = new Error('Entry not found');
+        if(!entries || entries.length==0){
+            let err = new Error('Entries not found');
             err.status = 404;
             return next(err);
         }
-        res.render('entry_detail', { entry: entry, category: entry.category })
+        res.render('entry_list', { entries: entries })
     })
+    // res.redirect('/')
 }

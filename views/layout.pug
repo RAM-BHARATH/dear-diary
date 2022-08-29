@@ -2,6 +2,8 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+    //- link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/dist/output.css')
+    block head_links
+  body(class='bg-slate-200 w-screen text-center')
     block content

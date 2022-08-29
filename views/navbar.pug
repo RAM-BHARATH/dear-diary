@@ -1,1 +1,19 @@
+doctype html
+html
+  head
+    title= title
+    //- link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/dist/output.css')
+  body(class='bg-slate-200 w-screen')
+    nav(class='flex justify-center items-center shadow-sm bg-slate-500 text-gray-800')
+        ul(class='flex justify-between items-center px-6')
+            a(href="/" class='p-4 hover:bg-slate-200 hover:text-gray-600 text-white') 
+              li(class='px-6') Home
+            a(href="/diary/category" class='p-4 hover:bg-slate-200 hover:text-gray-600 text-white') 
+              li(class='px-6 hover:text-slate-800') Categories
+            a(href="/diary/entry" class='p-4 hover:bg-slate-200 hover:text-gray-600 text-white') 
+              li(class='px-6 hover:text-slate-800') Entries
+            a(href='/diary/user' class='p-4 hover:bg-slate-200 hover:text-gray-600 text-white')
+              li(class='px-6 hover:text-slate-800') User     
+    block body_content
 

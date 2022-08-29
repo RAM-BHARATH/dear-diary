@@ -1,0 +1,13 @@
+extends layout 
+
+block content 
+    for entry in entries
+        if(entry.name)
+            h1= entry.entry_title
+        a(href=entry.url+'/update') Update
+        p= entry.entry_text
+        p= entry.entry_date_time
+        p= entry.last_updated_time
+        p= entry.category
+        p= entry.year  
+    //- p= entry.
