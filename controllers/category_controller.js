@@ -1,23 +1,38 @@
 const Category = require('../models/category');
+const async = require('async')
 
 const { body, validationResult } = require('express-validator');
 // const category = require('../models/category');
 const Entry = require('../models/entry')
 
-const async = require('async')
-
 exports.category_detail = function(req, res, next){
-    Category.findOne({_id: req.params.id, userId: req.user._id}).exec(
-        function(err, category){
-            if(err){ return next(err) }
-            if(!category){
+    // Category.findOne({_id: req.params.id, userId: req.user._id}).exec(
+    //     function(err, category){
+    //         if(err){ return next(err) }
+    //         if(!category){
+    //             let err = new Error('Category not found');
+    //             err.status = 404
+    //             return next(err)
+    //         }
+    //         res.render('category_detail', { user: req.user, category: category })
+    //     }
+    // )
+    async.parallel({
+        category(callback){
+            Category.findOne({_id: req.params.id, userId: req.user._id}).exec(callback)
+        },
+        entries(callback){
+            Entry.find({category: req.params.id, userId: req.user._id }).exec(callback)
+        }
+    }, function(err, results){
+        if(err){ return next(err) }
+            if(!results.category){
                 let err = new Error('Category not found');
                 err.status = 404
                 return next(err)
             }
-            res.render('category_detail', { user: req.user, category: category })
-        }
-    )
+        res.render('category_detail', { user: req.user, category: results.category })
+    })
 }
 
 exports.category_create_get = function(req, res, next){

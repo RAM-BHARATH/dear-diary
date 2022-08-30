@@ -191,7 +191,7 @@ exports.view_entry = function(req, res, next){
             err.status = 404;
             return next(err);
         }
-        res.render('entry_detail', { entry: entry, category: entry.category })
+        res.render('entry_detail', { user:req.user, entry: entry, category: entry.category })
     })
 }
 
@@ -207,7 +207,7 @@ exports.entry_list = function(req, res, next){
             err.status = 404;
             return next(err);
         }
-        res.render('entry_list', { entries: entries })
+        res.render('entry_list', { user:req.user, entries: entries })
     })
     // res.redirect('/')
 }

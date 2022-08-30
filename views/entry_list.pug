@@ -1,13 +1,25 @@
-extends layout 
+extends navbar
 
 block content 
-    for entry in entries
-        if(entry.name)
-            h1= entry.entry_title
-        a(href=entry.url+'/update') Update
-        p= entry.entry_text
-        p= entry.entry_date_time
-        p= entry.last_updated_time
-        p= entry.category
-        p= entry.year  
+    if(entries)
+        div(class='flex flex-wrap w-screen justify-center')
+            for entry in entries
+                //- div(class='flex flex-col h-48')
+                //-     div(class='w-fit')
+                //-         a(href=entry.url)  #{entry.entry_title? entry.entry_title: entry.entry_date_time}
+                //-     a(href=entry.url+'/update') Update
+                //-     p= entry.entry_text
+                //-     p= entry.entry_date_time
+                //-     p= entry.last_updated_time
+                //-     p= entry.category
+                //-     p= entry.year  
+                div(class='mx-5 my-2 flex flex-col justify-between p-4 bg-yellow-300 hover:bg-yellow-400 hover:shadow-2xl lg:m-5 h-96 w-72 lg:h-72 lg:w-60 rounded-md' onclick=`location.href='${entry.url}'`)
+                  div(class='my-1')
+                    a(href=entry.url) #{entry.entry_title ? entry.entry_title : entry.entry_date_time.toLocaleString('en-IN', {timeZone: 'UTC'}) }
+                  div(class='text-ellipsis') #{entry.entry_text}
+                  div(class='flex justify-between')
+                    div
+                        a(href=entry.url+'/update' class='p-2 bg-white rounded-md hover:shadow-md') Update
+                    div()
+                        a(href=entry.url+'/delete' class='p-2 bg-white rounded-md hover:shadow-md') Delete
     //- p= entry.

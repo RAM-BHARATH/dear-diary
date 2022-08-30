@@ -1,29 +1,6 @@
-doctype html
-html
-  head
-    title= title
-    //- link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/dist/output.css')
-  body(class='bg-slate-200 w-screen overflow-x-hidden')
-    nav(class='bg-slate-500') 
-        //- flex justify-between items-center shadow-sm bg-slate-500 text-gray-800
-        ul(class='flex justify-between items-center px-6')
-          div(class='flex')
-            a(href="/" class='p-4 hover:text-gray-600 text-white') 
-              li(class='px-6') Dear Diary
-          div(class='flex')
-            a(href="/diary/category" class='p-4 hover:bg-slate-200 hover:text-gray-600 text-white') 
-              li(class='px-6 hover:text-slate-800') Categories
-            a(href="/diary/entry" class='p-4 hover:bg-slate-200 hover:text-gray-600 text-white') 
-              li(class='px-6 hover:text-slate-800') Entries
-            if(user)
-              a(href='/diary/user' class='p-4 hover:bg-slate-200 hover:text-gray-600 text-white')
-                li(class='px-6 hover:text-slate-800') #{user.username}    
-              a(href='/logout' class='p-4 hover:bg-slate-200 hover:text-gray-600 text-white')
-                li(class='px-6 hover:text-slate-800') Logout
-            else 
-              a(href="/glogin" class='p-4 hover:bg-slate-200 hover:text-gray-600 text-white')
-                li(class='px-6 hover:text-slate-800') Login
+extends navbar 
+
+block content
     //- div(class='flex justify-center items-center flex-wrap')
     //-   if(user)
     //-     div Hello, #{user.username}
@@ -40,30 +17,35 @@ html
     //-     div(class='p-4')
     //-       a(href='/glogin' class='text-blue-800 underline') Please Login
 
-    div(class='w-screen')
-      h1(class='text-3xl font-bold p-5 underline text-center') Recent Entries
-      div(class='flex flex-row flex-wrap justify-center items-center')
+    if(entries)
+      div(class='w-screen')
+        h1(class='text-3xl font-bold p-5 underline text-center') Recent Entries
+        div(class='flex flex-row flex-wrap justify-center items-center')
           a(href="/diary/entry/create" class='mx-5 flex justify-center items-center p-1 bg-yellow-300 hover:bg-yellow-400 hover:shadow-2xl text-8xl lg:m-5 h-96 w-72 lg:h-72 lg:w-60 rounded-md') +
-          if(entries)
-            for entry in entries
-              div(class='mx-5 my-2 flex flex-col justify-between p-4 bg-yellow-300 hover:bg-yellow-400 hover:shadow-2xl lg:m-5 h-96 w-72 lg:h-72 lg:w-60 rounded-md')
-                div(class='my-1')
-                  a(href=entry.url) #{entry.entry_title ? entry.entry_title : entry.entry_date_time.toLocaleString('en-IN', {timeZone: 'UTC'}) }
-                div(class='flex justify-between')
-                  div()
-                    a(href=entry.url+'/update' class='p-2 bg-white rounded-md hover:shadow-md') Update
-                  div()
-                    a(href=entry.url+'/delete' class='p-2 bg-white rounded-md hover:shadow-md') Delete
-            div(class='flex flex-col justify-center items-center p-1 rounded-md w-screen lg:w-fit text-center')
-              a(href="/diary/entry/" class='underline text-blue-500 hover:text-blue-600 mx-auto') View More
+          for entry in entries
+            div(class='mx-5 my-2 flex flex-col justify-between p-4 bg-yellow-300 hover:bg-yellow-400 hover:shadow-2xl lg:m-5 h-96 w-72 lg:h-72 lg:w-60 rounded-md')
+              div(class='my-1')
+                a(href=entry.url) #{entry.entry_title ? entry.entry_title : entry.entry_date_time.toLocaleString('en-IN', {timeZone: 'UTC'}) }
+              div(class='flex justify-between')
+                div()
+                  a(href=entry.url+'/update' class='p-2 bg-white rounded-md hover:shadow-md') Update
+                div()
+                  a(href=entry.url+'/delete' class='p-2 bg-white rounded-md hover:shadow-md') Delete
+          div(class='flex flex-col justify-center items-center p-1 rounded-md w-screen lg:w-fit text-center')
+            a(href="/diary/entry/" class='underline text-blue-500 hover:text-blue-600 mx-auto') View More
+
       div(class='text-center')
-        h1(class='text-3xl font-bold p-5 underline') Recent Categories
-      div(class='flex flex-wrap justify-center')
-          a(href="/diary/category/create" class='flex flex-col justify-center items-center p-1 bg-yellow-300 hover:bg-yellow-400 hover:shadow-2xl text-4xl rounded-full lg:m-5 h-12 w-72') +
+        h1(class='text-3xl font-bold p-5 underline') Categories
+      div(class='flex flex-wrap justify-center w-3/4 mx-auto')
           if(entries)
+            a(href="/diary/category/create" class='flex flex-col justify-center items-center p-1 bg-yellow-300 hover:bg-yellow-400 hover:shadow-2xl text-4xl rounded-full lg:m-5 h-12 w-72') +
             for category in categories
-              div(class='flex flex-col justify-center items-center p-1 bg-yellow-300 hover:bg-yellow-400 hover:shadow-2xl lg:m-5 h-12 w-72 rounded-full')
-                div(class='m-1')
+              div(class='flex flex-col justify-center items-center px-3 bg-yellow-300 hover:bg-yellow-400 hover:shadow-2xl lg:m-3 w-fit rounded-full')
                   a(href=category.url) #{category.name}
             div(class='lg:flex lg:flex-col justify-center items-center p-1 rounded-md lg:w-fit')
-              a(href="/diary/event/" class='underline text-blue-500 hover:text-blue-600') View More
+              a(href="/diary/category/" class='underline text-blue-500 hover:text-blue-600') View More
+      
+    else 
+      div(class='w-screen flex justify-center items-center')
+        a(href='/glogin' class='text-3xl text-blue-500 underline p-4') Please Login!
+            
