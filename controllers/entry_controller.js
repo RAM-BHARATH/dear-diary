@@ -12,6 +12,7 @@ exports.index = function(req, res){
                 Entry
                 .find({ userId: req.user._id })
                 .limit(3)
+                .populate('category')
                 .sort({entry_date_time:-1})
                 .exec(callback)
             },
