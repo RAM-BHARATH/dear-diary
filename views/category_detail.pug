@@ -1,13 +1,38 @@
-extends layout 
+extends navbar 
 
 block content 
 
+    h1(class='text-center text-3xl underline my-5') Category Details
     if(category)
-        div 
-            h1= category.name 
-        div 
-            p= category.description
-        div 
-            a(href=category.url+'/update') Update
-        div 
-            a(href=category.url+'/delete') Delete
+        div(class='text-2xl text-center') 
+            span #{category.name}
+            span(class='text-lg')
+                span 
+                    a(href=category.url+'/update') Update
+                span &nbsp;|&nbsp;
+                span
+                    a(href=category.url+'/delete') Delete
+        div(class='text-center')
+            if(category.description) 
+                p=    category.description
+            else    
+                p "No description"
+        div(class='flex flex-wrap justify-center')
+            for entry in entries
+                div(class='mx-auto my-2 flex flex-col justify-between  p-3 bg-yellow-300 hover:bg-yellow-400 hover:shadow-2xl lg:m-5 h-96 w-72 lg:h-96 lg:w-72 rounded-md' onclick=`location.href='${entry.url}'`)
+                    div(class='my-1')
+                        div(class=' text-3xl lg:text-xl')
+                        a(href=entry.url) #{entry.entry_title ? entry.entry_title : entry.entry_date_time.toLocaleString('en-IN', {timeZone: 'UTC'}) }
+                        div(class='text-ellipsis lg:h-48 p-1 rounded-lg bg-slate-50 overflow-clip') #{entry.entry_text}
+                    div(class='text-sm my-1') 
+                        div() Entry Time: #{entry.entry_date_time.toLocaleString('en-IN', { timeZone: 'IST' })}
+                        if(new Date(entry.last_updated_time).getTime() != new Date(entry.entry_date_time).getTime())
+                            div() Last Updated: #{`${entry.last_updated_time.toLocaleDateString()}`}
+                    div(class='flex flex-wrap')
+                        for category in entry.category
+                            a(href=category.url class='text-xs mx-0.5 my-1 px-1.5 py-0.5 bg-slate-50 rounded-full') #{category.name} 
+                    div(class='flex justify-around')
+                        div(class='text-sm')
+                            a(href=entry.url+'/update' class='p-1.5 bg-white rounded-md hover:shadow-md') Update
+                        div(class='text-sm')
+                            a(href=entry.url+'/delete' class='p-1.5 bg-white rounded-md hover:shadow-md') Delete

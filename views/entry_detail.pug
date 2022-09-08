@@ -1,13 +1,27 @@
 extends navbar
 
 block content 
-
-    if(entry.name)
-        h1= entry.entry_title
-    a(href=entry.url+'/update') Update
-    p= entry.entry_text
-    p= entry.entry_date_time
-    p= entry.last_updated_time
-    p= entry.category
-    p= entry.year  
+    div(class='p-5')
+        h1(class='text-3xl')= (entry.entry_title?entry.entry_title: '#Untitled')
+        div(class='flex')
+            a(href=entry.url+'/update' class='p-2 m-1 bg-yellow-300 hover:bg-yellow-400 hover:shadow-lg rounded-lg') Update
+            a(href=entry.url+'/delete' class='p-2 m-1 bg-yellow-300 hover:bg-yellow-400 hover:shadow-lg rounded-lg') Delete
+        div
+            span(class='text-2xl underline') Entry Time
+            span(class='text-2xl') :&nbsp; 
+            span() #{new Date(entry.entry_date_time).toDateString()}
+            if(new Date(entry.entry_date_time).getTime()!=new Date(entry.last_updated_time).getTime())
+                span(class='text-2xl') &nbsp;|&nbsp;
+                span(class='text-2xl underline') Last Updated On
+                span(class='text-2xl') :&nbsp;
+                span #{entry.last_updated_time.toDateString()}
+        div(class='p-5')
+            p Entry:
+                div(class='p-4')    
+                    p= entry.entry_text
+        if(entry.category)
+            div(class='flex flex-wrap')
+                span(class='p-3') Categories:
+                for category in entry.category
+                    a(href=category.url class='p-3 rounded-full bg-gray-300 mx-2') #{category.name} 
     //- p= entry.

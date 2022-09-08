@@ -86,7 +86,7 @@ exports.entry_delete_get = function(req, res, next){
     .populate('category')
     .exec(function(err, entry){
         if(err) { return next(err) }
-        res.render('delete_entry', { title: 'Delete Entry', entry: entry});
+        res.render('delete_entry', { title: 'Delete Entry', entry: entry, user: req.user});
     })
 }
 
@@ -124,7 +124,7 @@ exports.entry_update_get = function(req, res, next){
                     }
                 }
             }
-            res.render('entry_form', { title: 'Update Entry', categories: results.categories, entry: results.entry })
+            res.render('entry_form', { title: 'Update Entry', categories: results.categories, entry: results.entry, user: req.user })
         }
     })
 }

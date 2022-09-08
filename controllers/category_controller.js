@@ -22,7 +22,7 @@ exports.category_detail = function(req, res, next){
             Category.findOne({_id: req.params.id, userId: req.user._id}).exec(callback)
         },
         entries(callback){
-            Entry.find({category: req.params.id, userId: req.user._id }).exec(callback)
+            Entry.find({category: req.params.id, userId: req.user._id }).populate('category').exec(callback)
         }
     }, function(err, results){
         if(err){ return next(err) }
@@ -31,7 +31,7 @@ exports.category_detail = function(req, res, next){
                 err.status = 404
                 return next(err)
             }
-        res.render('category_detail', { user: req.user, category: results.category })
+        res.render('category_detail', { user: req.user, category: results.category, entries: results.entries })
     })
 }
 
@@ -111,7 +111,7 @@ exports.category_delete_get = function(req, res, next){
     .exec(function(err, category){
         if(err){ return next(err) }
         if(category){
-            res.render('delete_category', { title: 'Delete Category', category: category })
+            res.render('delete_category', { title: 'Delete Category', category: category, user: req.user })
         }
     })
 }
@@ -147,7 +147,7 @@ exports.category_list = function(req, res, next){
     .exec(function(err, categories){
         if(err) return next(err);
         if(categories){
-            res.render('category_list', { title: 'All Categories', categories: categories})
+            res.render('category_list', { title: 'All Categories', categories: categories, user: req.user})
         }
     })
 }

@@ -1,11 +1,13 @@
-extends layout 
+extends navbar
 
 block content 
 
     if(categories)
-        ul 
+        h1(class='text-5xl lg:text-2xl underline text-center my-5') Categories
+        div(class='flex flex-wrap justify-center w-2/3 mx-auto m-5')
+            a(href="/diary/category/create" class='flex justify-center items-center p-1 bg-yellow-400 hover:bg-yellow-500 text-2xl hover:shadow-2xl rounded-full lg:m-3 w-48') +
             for category in categories
-                li 
+                div(class='text-2xl lg:text-lg p-3 bg-yellow-400 m-3 rounded-full')
                     span 
                         a(href=category.url) #{category.name}
                     span &nbsp;| &nbsp; 
@@ -13,4 +15,5 @@ block content
                         a(href=category.url+'/update') Update
                     span &nbsp;|&nbsp;
                         a(href=category.url+'/delete') Delete
-                 
+    else 
+        p No categories found            

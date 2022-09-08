@@ -46,7 +46,7 @@ module.exports = function() {
     },
     function(accessToken, refreshToken, profile, done){
         // db.collection('users').findOne({googleId: profile.id}).then(existingUser => {
-        console.log(profile);
+        // console.log(profile);
         // console.log('--------------------Req User------------------------')
         
         User.findOne({googleId: profile.id}).then(existingUser => {

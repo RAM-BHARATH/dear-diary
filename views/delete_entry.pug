@@ -1,11 +1,18 @@
-extends layout 
+extends navbar
 
 block content 
+    div(class='w-screen p-4')
+        h1(class='text-center text-3xl underline')= title 
+        div(class='text-center my-3')
+            p(class='text-xl my-3') Title: #{entry.entry_title ? entry.entry_title : entry.entry_date_time.toLocaleString('en-IN', {timeZone: 'UTC'}) }
+            p(class='text-lg underline') Entry Content
+            p(class='')= entry.entry_text 
 
-    h1= title 
-    p= entry.entry_title
-    p= entry.entry_text 
-
-    form(action="", method="post") 
-        input(type="hidden", name='entry_id', required='true', value=entry._id)
-        input(type="submit", value="Delete")
+        form(action="", method="post", class='text-center') 
+            input(type="hidden", name='entry_id', required='true', value=entry._id)
+            label(for='delete') Do you really want to delete this? This action is irreversible.
+            div(class='flex justify-center')
+                abbr(title="Delete entry") 
+                    input(type="submit",name='delete' value="Yes", class='m-2 px-3 py-1 bg-red-600 rounded-lg hover:bg-red-700 hover:cursor-pointer')
+                div(class='m-2 px-3 py-1 bg-green-600 rounded-lg hover:bg-green-700 hover:cursor-pointer')
+                    a(href=entry.url) No

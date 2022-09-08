@@ -5,18 +5,18 @@ html
     //- link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/dist/output.css')
 
-  body(class='bg-slate-200 flex justify-center h-screen items-center m-auto')
+  body(class='bg-slate-200 flex justify-center h-screen w-screen items-center m-auto p-6')
     div(class='w-fit flex')
-      div(class='max-w-sm w-96-lg w-screen h-96 shadow-lg flex items-center space-x-4')
+      div(class='max-w-sm w-96-lg w-screen h-96 shadow-lg lg:flex items-center space-x-4 hidden lg:visible')
         div(class='shrink-0')
           abbr(title="Photo by Ann poan")   
             a(href="https://www.pexels.com/photo/notebook-opened-on-desk-near-books-5797899/") 
               img(src="/images/pexels-ann-poan-5797899.jpg",class='h-96 w-96 rounded-xl ', alt="Diary")
 
-      div(class='p-6 max-w-sm w-96-lg w-screen h-96 m-auto bg-white rounded-xl shadow-lg flex justify-center items-center flex-wrap')
-        div(class='text-3xl w') Login / Create Account
-        div(class='max-w-sm w-96-lg w-80 h-10 bg-slate-300 m-auto shadow-lg rounded-full hover:bg-slate-400  hover:text-white.')
+      div(class='w-4/5 p-6 lg:max-w-sm lg:w-96 m-auto bg-white rounded-xl shadow-lg flex justify-center items-center flex-wrap lg:h-96 h-[48rem]')
+        div(class='text-6xl lg:text-3xl w') Login / Create Account
+        div(class='lg:max-w-sm w-screen lg:w-96 lg:80 bg-slate-300 m-auto shadow-lg rounded-full hover:bg-slate-400  hover:text-white h-20 lg:h-10 lg:py-0 py-5')
           a(href='/auth/google' class='flex justify-center items-center m-auto h-10') 
-            div(class='shrink-0 px-3')
-              img(src="/images/icons/google-svgrepo-com.svg", alt="Google Icon", class='h-8 w-8 bg-slate')
-            div(class='text-xl') Login with Google
+            div(class='shrink-0 px-3 lg:py-0')
+              img(src="/images/icons/google-svgrepo-com.svg", alt="Google Icon", class='h-12 w-12 lg:h-8 lg:w-8 bg-slate')
+            div(class='text-5xl lg:text-xl') Login with Google
