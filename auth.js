@@ -40,7 +40,8 @@ module.exports = function() {
     passport.use(new GoogleStrategy({
         clientID: GOOGLE_CLIENT_ID,
         clientSecret: GOOGLE_CLIENT_SECRET,
-        callbackURL: 'http://localhost:3000/auth/google/callback',
+        // callbackURL: 'http://localhost:3000/auth/google/callback',
+        callbackURL: 'https://dear-diary.herokuapp.com/auth/google/callback',
         scope: ['profile', 'email'],
         state: true
     },
