@@ -11,7 +11,7 @@ block content
                       a(href=entry.url) #{entry.entry_title ? entry.entry_title : entry.entry_date_time.toLocaleString('en-IN', {timeZone: 'UTC'}) }
                     div(class='text-ellipsis lg:h-48 p-1 rounded-lg bg-slate-50 overflow-clip') #{entry.entry_text}
                   div(class='text-sm my-1') 
-                    div() Entry Time: #{entry.entry_date_time.toLocaleString('en-IN', { timeZone: 'IST' })}
+                    div() Entry Time: #{entry.entry_date_time.toLocaleString('en-IN')}
                     if(new Date(entry.last_updated_time).getTime() != new Date(entry.entry_date_time).getTime())
                       div() Last Updated: #{`${entry.last_updated_time.toLocaleDateString()}`}
                   div(class='flex flex-wrap')
